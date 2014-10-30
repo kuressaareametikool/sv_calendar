@@ -70,7 +70,7 @@ app.get('/', function(req, res) {
     var teachers = '<body style="font-family: sans-serif; line-height: 1.5em; padding: 20px;"><h1>Õpetajate iCal\'id</h1>'
     for(var key in data.opetaja) {
       var teacher = data.opetaja[key].split(', ').reverse().join(' ')
-      teachers += '<a href="/teachers/' + key + '/ical">' + teacher + '</a><br />'
+      teachers += '<a href="/teacher/' + key + '/ical">' + teacher + '</a><br />'
     }
     teachers += '</body>'
     res.send(teachers)
