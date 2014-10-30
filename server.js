@@ -12,7 +12,7 @@ var weeks_past = 8
 
 var port = (process.argv[2] == '-p' && process.argv[3]) ? process.argv[3] : 8000
 
-app.get('/teachers/:teacher_id/ical', function(req, res) {
+app.get('/teacher/:teacher_id/ical', function(req, res) {
 
   var ical = new icalendar.iCalendar();
   var urls = []
