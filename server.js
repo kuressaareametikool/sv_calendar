@@ -1,3 +1,6 @@
+var fs = require('fs')
+var os = require("os");
+
 var request = require('request')
 var moment  = require('moment')
 var icalendar = require('icalendar')
@@ -67,13 +70,13 @@ app.get('/', function(req, res) {
  
   request({url: url, json: true}, function(e, r, data) {
  
-    var teachers = '<body style="font-family: sans-serif; line-height: 1.5em; padding: 20px;"><h1>Õpetajate iCal\'id</h1>'
+    var html = fs.readFileSync('./index.html', {encoding: 'utf8'})
     for(var key in data.opetaja) {
       var teacher = data.opetaja[key].split(', ').reverse().join(' ')
-      teachers += '<a href="/teacher/' + key + '/ical">' + teacher + '</a><br />'
+      html += '<a href="/teacher/' + key + '/ical">' + teacher + '</a><br />'
     }
-    teachers += '</body>'
-    res.send(teachers)
+    html += '</article></body></html>'
+    res.send(html)
  
   })
 
@@ -81,3 +84,5 @@ app.get('/', function(req, res) {
 
 
 app.listen(port);
+
+console.log('Server is running at http://' + os.hostname() + ':' + port)
