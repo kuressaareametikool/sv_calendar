@@ -1,5 +1,5 @@
 var fs = require('fs')
-var os = require("os");
+var spawn = require('child_process').spawn
 
 var request = require('request')
 var moment  = require('moment')
@@ -85,4 +85,4 @@ app.get('/', function(req, res) {
 
 app.listen(port);
 
-console.log('Server is running at http://' + os.hostname() + ':' + port)
+console.log('Server is running at port ' + port)
