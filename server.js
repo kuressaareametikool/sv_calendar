@@ -29,7 +29,11 @@ app.get('/teacher/:teacher_id/ical', function(req, res) {
 
   async.eachSeries(urls, function(url, cb) {
 
-    request({url: url, json: true}, function(e, r, data) {
+    request({
+      url: url,
+      json: true,
+      rejectUnauthorized: false
+    }, function(e, r, data) {
 
       for (var key in data.tunnid) {
 
@@ -68,9 +72,15 @@ app.get('/', function(req, res) {
   var week = moment().format('YYYY-MM-DD')
   var url = 'https://siseveeb.ee/ametikool/veebilehe_andmed/tunniplaan?nimekiri=opetaja&nadal=' + week
  
-  request({url: url, json: true}, function(e, r, data) {
- 
+
+  request({
+    url: url,
+    json: true,
+    rejectUnauthorized: false
+  }, function(e, r, data) {
+
     var html = fs.readFileSync('./index.html', {encoding: 'utf8'})
+
     for(var key in data.opetaja) {
       var teacher = data.opetaja[key].split(', ').reverse().join(' ')
       html += '<a href="/teacher/' + key + '/ical">' + teacher + '</a><br />'
